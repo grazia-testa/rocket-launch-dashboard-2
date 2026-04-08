@@ -1,0 +1,254 @@
+[
+  {
+    "member": "Austria",
+    "agency": "Austrian Space Agency",
+    "city": "Vienna",
+    "country": "Austria",
+    "address": "Früchtel 48, 1100 Vienna",
+    "lat": 48.1951,
+    "lng": 16.4197
+  },
+  {
+    "member": "Belgium",
+    "agency": "Belgian Federal Science Policy Office",
+    "city": "Brussels",
+    "country": "Belgium",
+    "address": "Rue de la Science 8, 1000 Brussels",
+    "lat": 50.8503,
+    "lng": 4.3517
+  },
+  {
+    "member": "Bulgaria",
+    "agency": "Bulgarian Academy of Sciences, Space Research Institute",
+    "city": "Sofia",
+    "country": "Bulgaria",
+    "address": "Acad. G. Bonchev str. 3, 1113 Sofia",
+    "lat": 42.6977,
+    "lng": 23.3219
+  },
+  {
+    "member": "Croatia",
+    "agency": "Ministry of Science and Education",
+    "city": "Zagreb",
+    "country": "Croatia",
+    "address": "Ulica Republike Austrije 20, 10000 Zagreb",
+    "lat": 45.8150,
+    "lng": 15.9819
+  },
+  {
+    "member": "Cyprus",
+    "agency": "Cyprus Space Programs Office",
+    "city": "Nicosia",
+    "country": "Cyprus",
+    "address": "1 Kallisperi Street, 1011 Nicosia",
+    "lat": 35.1264,
+    "lng": 33.3823
+  },
+  {
+    "member": "Czech Republic",
+    "agency": "Czech Space Office",
+    "city": "Prague",
+    "country": "Czech Republic",
+    "address": "Na Poříčí 1035/4, 110 00 Prague",
+    "lat": 50.0904,
+    "lng": 14.4198
+  },
+  {
+    "member": "Denmark",
+    "agency": "Danish National Space Committee",
+    "city": "Copenhagen",
+    "country": "Denmark",
+    "address": "Astrophysics Division, Building 325, 2100 Copenhagen",
+    "lat": 55.7558,
+    "lng": 12.5674
+  },
+  {
+    "member": "Estonia",
+    "agency": "Estonian Space Agency",
+    "city": "Tallinn",
+    "country": "Estonia",
+    "address": "Gonsiori tn 29, 10147 Tallinn",
+    "lat": 59.4370,
+    "lng": 24.7536
+  },
+  {
+    "member": "Finland",
+    "agency": "Finnish Space Agency",
+    "city": "Helsinki",
+    "country": "Finland",
+    "address": "P.O. Box 4, FI-02151 Espoo",
+    "lat": 60.2055,
+    "lng": 24.9353
+  },
+  {
+    "member": "France",
+    "agency": "National Centre for Space Studies (CNES)",
+    "city": "Paris",
+    "country": "France",
+    "address": "2 Place Maurice Quentin, 75039 Paris",
+    "lat": 48.8556,
+    "lng": 2.3522
+  },
+  {
+    "member": "Germany",
+    "agency": "German Aerospace Center (DLR)",
+    "city": "Cologne",
+    "country": "Germany",
+    "address": "Linder Höhe, 51147 Cologne",
+    "lat": 50.8773,
+    "lng": 6.9878
+  },
+  {
+    "member": "Greece",
+    "agency": "Hellenic Space Agency",
+    "city": "Athens",
+    "country": "Greece",
+    "address": "Mesogion Ave. 15-17, 15125 Maroussi, Athens",
+    "lat": 37.9838,
+    "lng": 23.8154
+  },
+  {
+    "member": "Hungary",
+    "agency": "Hungarian Space Office",
+    "city": "Budapest",
+    "country": "Hungary",
+    "address": "Akadémia utca 7, 1054 Budapest",
+    "lat": 47.4979,
+    "lng": 19.0402
+  },
+  {
+    "member": "Ireland",
+    "agency": "Irish Space Agency",
+    "city": "Dublin",
+    "country": "Ireland",
+    "address": "Hatch Street Upper, Dublin 2",
+    "lat": 53.3498,
+    "lng": -6.2603
+  },
+  {
+    "member": "Italy",
+    "agency": "Italian Space Agency (ASI)",
+    "city": "Rome",
+    "country": "Italy",
+    "address": "Via del Politecnico, snc, 00133 Rome",
+    "lat": 41.9028,
+    "lng": 12.4964
+  },
+  {
+    "member": "Latvia",
+    "agency": "Latvian Space Agency",
+    "city": "Riga",
+    "country": "Latvia",
+    "address": "3. Linija 7, 1050 Riga",
+    "lat": 56.9496,
+    "lng": 24.1052
+  },
+  {
+    "member": "Lithuania",
+    "agency": "Lithuanian Space Agency",
+    "city": "Vilnius",
+    "country": "Lithuania",
+    "address": "A. Goštauto 12, 01108 Vilnius",
+    "lat": 54.6872,
+    "lng": 25.2797
+  },
+  {
+    "member": "Luxembourg",
+    "agency": "Luxembourg Space Agency",
+    "city": "Luxembourg City",
+    "country": "Luxembourg",
+    "address": "4, rue Alphonse Weicker, 2721 Luxembourg",
+    "lat": 49.6116,
+    "lng": 6.1319
+  },
+  {
+    "member": "Netherlands",
+    "agency": "Netherlands Organisation for Applied Scientific Research",
+    "city": "Utrecht",
+    "country": "Netherlands",
+    "address": "Princetonplein 8-K, 3584 CC Utrecht",
+    "lat": 52.0893,
+    "lng": 5.1698
+  },
+  {
+    "member": "Poland",
+    "agency": "Polish Space Agency",
+    "city": "Warsaw",
+    "country": "Poland",
+    "address": "Al. Jerozolimskie 144, 02-305 Warsaw",
+    "lat": 52.2297,
+    "lng": 21.0122
+  },
+  {
+    "member": "Portugal",
+    "agency": "Portuguese Space Agency",
+    "city": "Lisbon",
+    "country": "Portugal",
+    "address": "Av. D. Carlos I, 128, 1200-649 Lisbon",
+    "lat": 38.7223,
+    "lng": -9.1393
+  },
+  {
+    "member": "Romania",
+    "agency": "Romanian Space Agency",
+    "city": "Bucharest",
+    "country": "Romania",
+    "address": "Mendeleev Street 21-25, 060107 Bucharest",
+    "lat": 44.4268,
+    "lng": 26.1025
+  },
+  {
+    "member": "Slovakia",
+    "agency": "Slovak Space Agency",
+    "city": "Bratislava",
+    "country": "Slovakia",
+    "address": "Železničná 30, 819 08 Bratislava",
+    "lat": 48.1486,
+    "lng": 17.1077
+  },
+  {
+    "member": "Slovenia",
+    "agency": "Slovenian Space Office",
+    "city": "Ljubljana",
+    "country": "Slovenia",
+    "address": "Jamova 39, 1000 Ljubljana",
+    "lat": 46.0569,
+    "lng": 14.5058
+  },
+  {
+    "member": "Spain",
+    "agency": "National Institute of Aerospace Technology (INTA)",
+    "city": "Madrid",
+    "country": "Spain",
+    "address": "Ctra. de Ajalvir km. 4, 28850 Torrejón de Ardoz",
+    "lat": 40.4168,
+    "lng": -3.7038
+  },
+  {
+    "member": "Sweden",
+    "agency": "Swedish National Space Agency",
+    "city": "Solna",
+    "country": "Sweden",
+    "address": "Rymdstyrelsen, Box 4006, 171 04 Solna",
+    "lat": 59.3293,
+    "lng": 18.0136
+  },
+  {
+    "member": "Switzerland",
+    "agency": "Swiss Space Office",
+    "city": "Bern",
+    "country": "Switzerland",
+    "address": "Inselgasse 1, 3003 Bern",
+    "lat": 46.9479,
+    "lng": 7.4474
+  },
+  {
+    "member": "United Kingdom",
+    "agency": "UK Space Agency",
+    "city": "Swindon",
+    "country": "United Kingdom",
+    "address": "Alencon House, 25 Saville Row, Swindon SN1 1LL",
+    "lat": 51.5636,
+    "lng": -1.7823
+  }
+]

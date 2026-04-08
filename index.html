@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESA Member States Space Network Atlas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            padding: 30px;
+        }
+        .section {
+            display: flex;
+            flex-direction: column;
+        }
+        .section h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        #map {
+            height: 500px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 2px solid #e0e0e0;
+        }
+        .table-container {
+            flex: 1;
+            overflow-y: auto;
+            max-height: 600px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        th {
+            padding: 15px 10px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+        td {
+            padding: 12px 10px;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 0.9em;
+        }
+        tbody tr {
+            transition: background-color 0.2s;
+        }
+        tbody tr:hover {
+            background-color: #f5f5ff;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .member {
+            font-weight: 600;
+            color: #667eea;
+        }
+        .city {
+            color: #555;
+        }
+        .coordinates {
+            font-family: monospace;
+            font-size: 0.85em;
+            color: #888;
+        }
+        .leaflet-popup-content {
+            font-size: 0.9em;
+        }
+        .leaflet-popup-content h3 {
+            margin: 5px 0 10px 0;
+            color: #667eea;
+        }
+        .leaflet-popup-content p {
+            margin: 2px 0;
+        }
+        @media (max-width: 1024px) {
+            .content {
+                grid-template-columns: 1fr;
+            }
+            header h1 {
+                font-size: 1.8em;
+            }
+        }
+        footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #ddd;
+        }
+        .stats {
+            background: #f0f4ff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            text-align: center;
+        }
+        .stat-box {
+            padding: 10px;
+        }
+        .stat-box h3 {
+            color: #667eea;
+            font-size: 1.5em;
+        }
+        .stat-box p {
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛰️ ESA Member States Space Network Atlas</h1>
+            <p>Real-time Directory of European Space Agencies</p>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <h3 id="memberCount">0</h3>
+                <p>Member States</p>
+            </div>
+            <div class="stat-box">
+                <h3>22</h3>
+                <p>ESA Members</p>
+            </div>
+            <div class="stat-box">
+                <h3>📍</h3>
+                <p>Interactive Mapping</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2>Interactive Map</h2>
+                <div id="map"></div>
+            </div>
+
+            <div class="section">
+                <h2>Agencies Directory</h2>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Member State</th>
+                                <th>Agency HQ</th>
+                                <th>City</th>
+                                <th>Coordinates</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>European Space Agency (ESA) Member States Directory | Last Updated: 2026 | Data includes coordinates and headquarters information for mission planning</p>
+        </footer>
+    </div>
+
+    <script>
+        // Initialize map
+        const map = L.map('map').setView([54.5260, 15.2551], 4);
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors',
+            maxZoom: 19
+        }).addTo(map);
+
+        // Fetch and display data
+        async function loadData() {
+            try {
+                const response = await fetch('esa_member_states_agencies.json');
+                const data = await response.json();
+                
+                // Update member count
+                document.getElementById('memberCount').textContent = data.length;
+                
+                // Populate table
+                const tableBody = document.getElementById('tableBody');
+                data.forEach((agency, index) => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td class="member">${agency.member}</td>
+                        <td>${agency.agency}</td>
+                        <td class="city">${agency.city}, ${agency.country}</td>
+                        <td class="coordinates">${agency.lat.toFixed(4)}, ${agency.lng.toFixed(4)}</td>
+                    `;
+                    tableBody.appendChild(row);
+                    
+                    // Add marker to map
+                    const marker = L.circleMarker(
+                        [agency.lat, agency.lng],
+                        {
+                            radius: 6,
+                            fillColor: '#667eea',
+                            color: '#764ba2',
+                            weight: 2,
+                            opacity: 0.8,
+                            fillOpacity: 0.7
+                        }
+                    ).addTo(map);
+                    
+                    // Add popup with agency information
+                    const popupContent = `
+                        <h3>${agency.member}</h3>
+                        <p><strong>Agency:</strong> ${agency.agency}</p>
+                        <p><strong>Location:</strong> ${agency.city}, ${agency.country}</p>
+                        <p><strong>Address:</strong> ${agency.address}</p>
+                        <p><strong>Coordinates:</strong> ${agency.lat.toFixed(4)}°, ${agency.lng.toFixed(4)}°</p>
+                    `;
+                    marker.bindPopup(popupContent);
+                    
+                    // Highlight row on marker hover
+                    marker.on('mouseover', () => {
+                        row.style.backgroundColor = '#fffacd';
+                    });
+                    marker.on('mouseout', () => {
+                        if (index % 2 === 0) {
+                            row.style.backgroundColor = '#f9f9f9';
+                        } else {
+                            row.style.backgroundColor = 'white';
+                        }
+                    });
+                });
+                
+                // Fit map to markers
+                setTimeout(() => {
+                    const group = new L.featureGroup(map._layers);
+                    if (Object.keys(map._layers).length > 1) {
+                        map.fitBounds(group.getBounds().pad(0.1));
+                    }
+                }, 100);
+                
+            } catch (error) {
+                console.error('Error loading data:', error);
+                alert('Error loading agency data. Please ensure esa_member_states_agencies.json is in the same directory.');
+            }
+        }
+
+        // Load data when page is ready
+        loadData();
+    </script>
+</body>
+</html>
