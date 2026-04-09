@@ -86,13 +86,13 @@
     </div>
 
     <script>
-        const apiUrl = 'https://launchlibrary.net/1.4/launch/next/10';
+        const apiUrl = 'https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=10';
 
         async function fetchLaunches() {
             try {
                 const response = await fetch(apiUrl);
                 const data = await response.json();
-                displayLaunches(data.launches);
+                displayLaunches(data.results);
             } catch (error) {
                 console.error('Error fetching launch data:', error);
                 document.getElementById('mission').textContent = 'Error loading data';
@@ -103,9 +103,9 @@
             if (launches.length === 0) return;
 
             const next = launches[0];
-            document.getElementById('mission').textContent = `Mission: ${next.name || 'Unknown'}`;
-            document.getElementById('rocket').textContent = `Rocket: ${next.rocket?.name || 'Unknown'}`;
-            document.getElementById('site').textContent = `Site: ${next.location?.name || 'Unknown'}`;
+            document.getElementById('mission').textContent = `Mission: ${next.mission?.name || 'Unknown'}`;
+            document.getElementById('rocket').textContent = `Rocket: ${next.rocket?.configuration?.name || 'Unknown'}`;
+            document.getElementById('site').textContent = `Site: ${next.pad?.location?.name || 'Unknown'}, ${next.pad?.name || ''}`;
             const launchTime = new Date(next.net);
             document.getElementById('datetime').textContent = `Date/Time: ${launchTime.toLocaleString()}`;
 
@@ -117,9 +117,9 @@
                 const item = document.createElement('div');
                 item.className = 'launch-item';
                 item.innerHTML = `
-                    <h3>${launch.name || 'Unknown'}</h3>
-                    <p>Rocket: ${launch.rocket?.name || 'Unknown'}</p>
-                    <p>Site: ${launch.location?.name || 'Unknown'}</p>
+                    <h3>${launch.mission?.name || 'Unknown'}</h3>
+                    <p>Rocket: ${launch.rocket?.configuration?.name || 'Unknown'}</p>
+                    <p>Site: ${launch.pad?.location?.name || 'Unknown'}, ${launch.pad?.name || ''}</p>
                     <p>Date/Time: ${new Date(launch.net).toLocaleString()}</p>
                 `;
                 otherContainer.appendChild(item);
