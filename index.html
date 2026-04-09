@@ -3,300 +3,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ESA Member States Space Network Atlas</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <title>Rocket Launch Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0c0c0c, #1a1a2e);
+            color: #ffffff;
+            margin: 0;
+            padding: 20px;
             min-height: 100vh;
-            padding: 20px;
         }
-        .container {
-            max-width: 1400px;
+        #dashboard {
+            max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-            overflow: hidden;
         }
-        header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px 20px;
+        h1 {
             text-align: center;
-        }
-        header h1 {
             font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px #00d4ff;
         }
-        header p {
-            font-size: 1.1em;
-            opacity: 0.95;
-        }
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            padding: 30px;
-        }
-        .section {
-            display: flex;
-            flex-direction: column;
-        }
-        .section h2 {
-            font-size: 1.8em;
-            color: #333;
-            margin-bottom: 15px;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 10px;
-        }
-        #map {
-            height: 500px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border: 2px solid #e0e0e0;
-        }
-        .table-container {
-            flex: 1;
-            overflow-y: auto;
-            max-height: 600px;
-            border-radius: 8px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
-        thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-        th {
-            padding: 15px 10px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 0.95em;
-        }
-        td {
-            padding: 12px 10px;
-            border-bottom: 1px solid #e0e0e0;
-            font-size: 0.9em;
-        }
-        tbody tr {
-            transition: background-color 0.2s;
-        }
-        tbody tr:hover {
-            background-color: #f5f5ff;
-        }
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        .member {
-            font-weight: 600;
-            color: #667eea;
-        }
-        .city {
-            color: #555;
-        }
-        .coordinates {
-            font-family: monospace;
-            font-size: 0.85em;
-            color: #888;
-        }
-        .leaflet-popup-content {
-            font-size: 0.9em;
-        }
-        .leaflet-popup-content h3 {
-            margin: 5px 0 10px 0;
-            color: #667eea;
-        }
-        .leaflet-popup-content p {
-            margin: 2px 0;
-        }
-        @media (max-width: 1024px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-            header h1 {
-                font-size: 1.8em;
-            }
-        }
-        footer {
-            background: #f5f5f5;
+        #next-launch {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
             padding: 20px;
-            text-align: center;
-            color: #666;
-            border-top: 1px solid #ddd;
+            margin-bottom: 40px;
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
         }
-        .stats {
-            background: #f0f4ff;
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+        #next-launch h2 {
+            margin-top: 0;
+            color: #00d4ff;
+        }
+        #countdown {
+            font-size: 2em;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-align: center;
+        }
+        #other-launches {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            text-align: center;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
-        .stat-box {
-            padding: 10px;
+        .launch-item {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
         }
-        .stat-box h3 {
-            color: #667eea;
-            font-size: 1.5em;
+        .launch-item h3 {
+            margin-top: 0;
+            color: #00d4ff;
         }
-        .stat-box p {
-            color: #666;
-            font-size: 0.9em;
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            #next-launch {
+                padding: 15px;
+            }
+            #countdown {
+                font-size: 1.5em;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🛰️ ESA Member States Space Network Atlas</h1>
-            <p>Real-time Directory of European Space Agencies</p>
-        </header>
-        
-        <div class="stats">
-            <div class="stat-box">
-                <h3 id="memberCount">0</h3>
-                <p>Member States</p>
-            </div>
-            <div class="stat-box">
-                <h3>22</h3>
-                <p>ESA Members</p>
-            </div>
-            <div class="stat-box">
-                <h3>📍</h3>
-                <p>Interactive Mapping</p>
-            </div>
+    <div id="dashboard">
+        <h1>Rocket Launch Dashboard</h1>
+        <div id="next-launch">
+            <h2>Next Launch</h2>
+            <p id="mission">Loading...</p>
+            <p id="rocket">Loading...</p>
+            <p id="site">Loading...</p>
+            <p id="datetime">Loading...</p>
+            <p id="countdown">Loading...</p>
         </div>
-
-        <div class="content">
-            <div class="section">
-                <h2>Interactive Map</h2>
-                <div id="map"></div>
-            </div>
-
-            <div class="section">
-                <h2>Agencies Directory</h2>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Member State</th>
-                                <th>Agency HQ</th>
-                                <th>City</th>
-                                <th>Coordinates</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableBody">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        <div id="other-launches">
+            <!-- Other launches will be populated here -->
         </div>
-
-        <footer>
-            <p>European Space Agency (ESA) Member States Directory | Last Updated: 2026 | Data includes coordinates and headquarters information for mission planning</p>
-        </footer>
     </div>
 
     <script>
-        // Initialize map
-        const map = L.map('map').setView([54.5260, 15.2551], 4);
-        
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors',
-            maxZoom: 19
-        }).addTo(map);
+        const apiUrl = 'https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=10';
 
-        // Fetch and display data
-        async function loadData() {
+        async function fetchLaunches() {
             try {
-                const response = await fetch('esa_member_states_agencies.json');
+                const response = await fetch(apiUrl);
                 const data = await response.json();
-                
-                // Update member count
-                document.getElementById('memberCount').textContent = data.length;
-                
-                // Populate table
-                const tableBody = document.getElementById('tableBody');
-                data.forEach((agency, index) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td class="member">${agency.member}</td>
-                        <td>${agency.agency}</td>
-                        <td class="city">${agency.city}, ${agency.country}</td>
-                        <td class="coordinates">${agency.lat.toFixed(4)}, ${agency.lng.toFixed(4)}</td>
-                    `;
-                    tableBody.appendChild(row);
-                    
-                    // Add marker to map
-                    const marker = L.circleMarker(
-                        [agency.lat, agency.lng],
-                        {
-                            radius: 6,
-                            fillColor: '#667eea',
-                            color: '#764ba2',
-                            weight: 2,
-                            opacity: 0.8,
-                            fillOpacity: 0.7
-                        }
-                    ).addTo(map);
-                    
-                    // Add popup with agency information
-                    const popupContent = `
-                        <h3>${agency.member}</h3>
-                        <p><strong>Agency:</strong> ${agency.agency}</p>
-                        <p><strong>Location:</strong> ${agency.city}, ${agency.country}</p>
-                        <p><strong>Address:</strong> ${agency.address}</p>
-                        <p><strong>Coordinates:</strong> ${agency.lat.toFixed(4)}°, ${agency.lng.toFixed(4)}°</p>
-                    `;
-                    marker.bindPopup(popupContent);
-                    
-                    // Highlight row on marker hover
-                    marker.on('mouseover', () => {
-                        row.style.backgroundColor = '#fffacd';
-                    });
-                    marker.on('mouseout', () => {
-                        if (index % 2 === 0) {
-                            row.style.backgroundColor = '#f9f9f9';
-                        } else {
-                            row.style.backgroundColor = 'white';
-                        }
-                    });
-                });
-                
-                // Fit map to markers
-                setTimeout(() => {
-                    const group = new L.featureGroup(map._layers);
-                    if (Object.keys(map._layers).length > 1) {
-                        map.fitBounds(group.getBounds().pad(0.1));
-                    }
-                }, 100);
-                
+                displayLaunches(data.results);
             } catch (error) {
-                console.error('Error loading data:', error);
-                alert('Error loading agency data. Please ensure esa_member_states_agencies.json is in the same directory.');
+                console.error('Error fetching launch data:', error);
+                document.getElementById('mission').textContent = 'Error loading data';
             }
         }
 
-        // Load data when page is ready
-        loadData();
+        function displayLaunches(launches) {
+            if (launches.length === 0) return;
+
+            const next = launches[0];
+            document.getElementById('mission').textContent = `Mission: ${next.mission?.name || 'Unknown'}`;
+            document.getElementById('rocket').textContent = `Rocket: ${next.rocket?.configuration?.name || 'Unknown'}`;
+            document.getElementById('site').textContent = `Site: ${next.pad?.location?.name || 'Unknown'}, ${next.pad?.name || ''}`;
+            const launchTime = new Date(next.net);
+            document.getElementById('datetime').textContent = `Date/Time: ${launchTime.toLocaleString()}`;
+
+            updateCountdown(launchTime);
+
+            const otherContainer = document.getElementById('other-launches');
+            otherContainer.innerHTML = '';
+            launches.slice(1).forEach(launch => {
+                const item = document.createElement('div');
+                item.className = 'launch-item';
+                item.innerHTML = `
+                    <h3>${launch.mission?.name || 'Unknown'}</h3>
+                    <p>Rocket: ${launch.rocket?.configuration?.name || 'Unknown'}</p>
+                    <p>Site: ${launch.pad?.location?.name || 'Unknown'}, ${launch.pad?.name || ''}</p>
+                    <p>Date/Time: ${new Date(launch.net).toLocaleString()}</p>
+                `;
+                otherContainer.appendChild(item);
+            });
+        }
+
+        function updateCountdown(launchTime) {
+            const countdownEl = document.getElementById('countdown');
+            const interval = setInterval(() => {
+                const now = new Date();
+                const diff = launchTime - now;
+                if (diff <= 0) {
+                    countdownEl.textContent = 'Launched!';
+                    clearInterval(interval);
+                    return;
+                }
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const secs = Math.floor((diff % (1000 * 60)) / 1000);
+                countdownEl.textContent = `${days}d ${hours}h ${mins}m ${secs}s`;
+            }, 1000);
+        }
+
+        fetchLaunches();
     </script>
 </body>
 </html>

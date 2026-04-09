@@ -1,41 +1,34 @@
-# ESA Member States Space Network Atlas
+# Rocket Launch Dashboard
 
 ## Overview
-A real-time interactive atlas of the European Space Agency (ESA) member states' space agencies. This web page provides a comprehensive directory with:
-
-- **Interactive Map**: Visual representation of all ESA member space agencies across Europe
-- **Data Table**: Detailed information including agency names, locations, addresses, and precise coordinates
-- **Mission Control Integration**: Designed for space network planning and coordination
+A live dashboard displaying upcoming rocket launches worldwide, featuring real-time data, countdown timers, and mission details.
 
 ## Features
-✅ All 22+ ESA member states represented  
-✅ Accurate latitude/longitude coordinates for each agency  
-✅ Responsive, modern design  
-✅ Interactive map with hover functionality  
-✅ Real-time data loading from JSON  
+✅ Real upcoming launch data from The Space Devs API  
+✅ Live countdown timer to the next launch  
+✅ Mission name, rocket type, launch site, and date/time  
+✅ Responsive and visually polished design  
+✅ Automatic data refresh  
 
 ## Contents
-- `index.html` - Main web application with embedded styling and scripts
-- `esa_member_states_agencies.json` - Complete database of ESA member agencies with coordinates
-- `README.md` - Documentation
+- `index.html` - Main dashboard with embedded styling and scripts
 
-## Deployment
-This site is deployed on GitHub Pages and is live and accessible.
+## Deployment to GitHub Pages
+1. Create a new public repository on GitHub
+2. Upload `index.html` to the repository
+3. Go to repository Settings > Pages
+4. Set source to "Deploy from a branch"
+5. Select "main" branch and "/ (root)" folder
+6. Save and wait for deployment (usually a few minutes)
+7. The live URL will be shown in the Pages section
 
 ## Technologies Used
 - HTML5 / CSS3
 - JavaScript (Vanilla)
-- Leaflet.js for interactive mapping
-- OpenStreetMap for map tiles
+- The Space Devs Launch Library API
 
-## Data Accuracy
-Coordinates have been verified for key agencies including:
-- Germany (DLR, Cologne): 50.8773°N, 6.9878°E
-- France (CNES, Paris): 48.8556°N, 2.3522°E
-- Italy (ASI, Rome): 41.9028°N, 12.4964°E
+## API Source
+Data sourced from https://thespacedevs.com/llapi
 
 ## License
-Public reference data for ESA member states space agencies
-
----
-*European Space Network Atlas - Real-time Mission Control Resources*
+Open source for educational purposes
