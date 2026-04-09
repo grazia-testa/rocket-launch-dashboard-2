@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Run ISS Script",
+			"type": "shell",
+			"command": "python iss.py",
+			"group": "build"
+		},
+		{
+			"label": "Run ISS Script with python3",
+			"type": "shell",
+			"command": "python3 iss.py",
+			"group": "build"
+		}
+	]
+}
